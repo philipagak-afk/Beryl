@@ -1,0 +1,539 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: #090609;
+    color: white;
+    min-height: 100vh;
+}
+
+
+/* =========================
+   GIFT SECTION
+========================= */
+
+.gift-section {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 80px 20px;
+
+    background:
+        radial-gradient(circle at top, #35152d 0%, #090609 45%);
+}
+
+
+.gift-content {
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+}
+
+
+/* =========================
+   TEXT
+========================= */
+
+.small-text {
+    font-size: 13px;
+    letter-spacing: 5px;
+    color: #ff9fcf;
+    margin-bottom: 15px;
+}
+
+
+h1 {
+    font-family: "DM Serif Display", serif;
+    font-size: clamp(40px, 7vw, 70px);
+    font-weight: 400;
+    margin-bottom: 20px;
+
+    background: linear-gradient(
+        90deg,
+        #fff,
+        #ffb5d8,
+        #fff
+    );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+.intro {
+    max-width: 600px;
+    margin: auto;
+
+    font-size: 16px;
+    line-height: 1.8;
+    color: #d8ccd5;
+}
+
+
+.instruction {
+    margin-top: 20px;
+
+    font-size: 17px;
+    color: #fff;
+}
+
+
+.instruction span {
+    color: #ff8fc5;
+    font-weight: 600;
+}
+
+
+/* =========================
+   GIFT CONTAINER
+========================= */
+
+.gift-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 60px;
+}
+
+
+.gift-box {
+    width: 220px;
+    height: 190px;
+
+    position: relative;
+
+    cursor: pointer;
+
+    transition: transform 0.3s ease;
+}
+
+
+.gift-box:hover {
+    transform: translateY(-10px) scale(1.03);
+}
+
+
+/* =========================
+   BOX BODY
+========================= */
+
+.box-body {
+    position: absolute;
+
+    width: 200px;
+    height: 140px;
+
+    left: 10px;
+    bottom: 0;
+
+    background: linear-gradient(
+        135deg,
+        #d92f79,
+        #8e174e
+    );
+
+    border-radius: 5px;
+
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+
+.vertical-ribbon {
+    position: absolute;
+
+    width: 35px;
+    height: 100%;
+
+    left: 50%;
+    transform: translateX(-50%);
+
+    background: #f8c7dc;
+}
+
+
+.horizontal-ribbon {
+    position: absolute;
+
+    width: 100%;
+    height: 30px;
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    background: #f8c7dc;
+}
+
+
+/* =========================
+   GIFT LID
+========================= */
+
+.gift-lid {
+    position: absolute;
+
+    width: 220px;
+    height: 45px;
+
+    left: 0;
+    top: 35px;
+
+    background: linear-gradient(
+        135deg,
+        #ed4b91,
+        #a71c5d
+    );
+
+    border-radius: 6px;
+
+    z-index: 5;
+
+    transition:
+        transform 1s ease,
+        top 1s ease;
+}
+
+
+.gift-lid::after {
+    content: "";
+
+    position: absolute;
+
+    width: 35px;
+    height: 100%;
+
+    left: 50%;
+    transform: translateX(-50%);
+
+    background: #f8c7dc;
+}
+
+
+/* =========================
+   BOW
+========================= */
+
+.bow {
+    position: absolute;
+
+    width: 90px;
+    height: 50px;
+
+    left: 50%;
+    top: -32px;
+
+    transform: translateX(-50%);
+
+    z-index: 10;
+}
+
+
+.bow-left,
+.bow-right {
+    position: absolute;
+
+    width: 45px;
+    height: 35px;
+
+    background: #ffb0d1;
+
+    border-radius: 50% 50% 10% 50%;
+}
+
+
+.bow-left {
+    left: 0;
+    transform: rotate(-25deg);
+}
+
+
+.bow-right {
+    right: 0;
+    transform: rotate(25deg);
+}
+
+
+.bow-center {
+    position: absolute;
+
+    width: 20px;
+    height: 20px;
+
+    background: #f47eae;
+
+    border-radius: 50%;
+
+    left: 50%;
+    top: 10px;
+
+    transform: translateX(-50%);
+}
+
+
+/* =========================
+   OPEN ANIMATION
+========================= */
+
+.gift-box.open .gift-lid {
+    transform:
+        translateY(-100px)
+        rotate(-8deg);
+}
+
+
+/* =========================
+   CLICK TEXT
+========================= */
+
+.click-text {
+    margin-top: 35px;
+
+    color: #aaa;
+
+    font-size: 14px;
+
+    animation: pulse 2s infinite;
+}
+
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+
+/* =========================
+   PRESENT REVEAL
+========================= */
+
+.present-reveal {
+    display: none;
+
+    margin-top: 50px;
+
+    animation: reveal 1s ease forwards;
+}
+
+
+.present-reveal.show {
+    display: block;
+}
+
+
+@keyframes reveal {
+
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+.surprise {
+    color: #ff9bca;
+
+    font-size: 14px;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 10px;
+}
+
+
+.present-reveal h2 {
+    font-family: "DM Serif Display", serif;
+
+    font-size: 45px;
+
+    font-weight: 400;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================
+   PRESENT IMAGE
+========================= */
+
+.present-image-container {
+    width: min(90%, 500px);
+
+    margin: auto;
+
+    padding: 10px;
+
+    border-radius: 20px;
+
+    background: linear-gradient(
+        135deg,
+        #ffb1d4,
+        #7d1648,
+        #ffb1d4
+    );
+
+    box-shadow:
+        0 20px 70px rgba(255, 75, 150, 0.25);
+}
+
+
+.present-image {
+    width: 100%;
+
+    display: block;
+
+    border-radius: 15px;
+
+    transition: transform 0.5s ease;
+}
+
+
+.present-image:hover {
+    transform: scale(1.03);
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message {
+    max-width: 600px;
+
+    margin: 30px auto 10px;
+
+    color: #d8ccd5;
+
+    line-height: 1.8;
+
+    font-size: 16px;
+}
+
+
+.final-message {
+    color: #ffb4d4;
+
+    font-size: 18px;
+
+    margin-top: 20px;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+#closeGift {
+    margin-top: 30px;
+
+    padding: 12px 25px;
+
+    border: 1px solid #ff8fc5;
+
+    border-radius: 30px;
+
+    background: transparent;
+
+    color: #ffb1d3;
+
+    cursor: pointer;
+
+    font-family: "Poppins", sans-serif;
+
+    transition: 0.3s;
+}
+
+
+#closeGift:hover {
+    background: #ff8fc5;
+
+    color: #190711;
+
+    transform: translateY(-3px);
+}
+
+
+/* =========================
+   CONFETTI
+========================= */
+
+.confetti-piece {
+    position: fixed;
+
+    width: 8px;
+    height: 14px;
+
+    top: -20px;
+
+    animation: fall linear forwards;
+
+    z-index: 100;
+}
+
+
+@keyframes fall {
+
+    to {
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .gift-section {
+        padding: 60px 15px;
+    }
+
+    h1 {
+        font-size: 42px;
+    }
+
+    .intro {
+        font-size: 14px;
+    }
+
+    .gift-box {
+        transform: scale(0.9);
+    }
+
+    .gift-box:hover {
+        transform: scale(0.93);
+    }
+
+    .present-reveal h2 {
+        font-size: 36px;
+    }
+
+    .message {
+        font-size: 14px;
+    }
+}
