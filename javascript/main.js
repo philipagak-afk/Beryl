@@ -1,124 +1,380 @@
-const giftBox = document.getElementById("giftBox");
-const presentReveal = document.getElementById("presentReveal");
-const clickText = document.getElementById("clickText");
-const closeGift = document.getElementById("closeGift");
+/* =========================================
+   OPEN WEBSITE
+========================================= */
+
+const openWebsite = document.getElementById("openWebsite");
+
+const openingScreen =
+    document.getElementById("openingScreen");
+
+const mainWebsite =
+    document.getElementById("mainWebsite");
 
 
-// =========================
-// OPEN GIFT
-// =========================
+openWebsite.addEventListener("click", () => {
 
-giftBox.addEventListener("click", function () {
+    openingScreen.style.opacity = "0";
 
-    // Prevent clicking multiple times
-    if (giftBox.classList.contains("open")) {
-        return;
-    }
+    openingScreen.style.transition =
+        "opacity 0.8s ease";
 
-    // Open the box
-    giftBox.classList.add("open");
-
-    // Change instruction
-    clickText.textContent = "✨ Your surprise is here...";
-
-    // Wait for the lid animation
     setTimeout(() => {
 
-        presentReveal.classList.add("show");
+        openingScreen.style.display = "none";
 
-        // Create confetti
-        createConfetti();
+        mainWebsite.classList.remove("hidden");
 
-        // Scroll smoothly to the present
-        setTimeout(() => {
-            presentReveal.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
-        }, 300);
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
 
-    }, 700);
+    }, 800);
 
 });
 
 
-// =========================
-// CLOSE GIFT
-// =========================
 
-closeGift.addEventListener("click", function () {
+/* =========================================
+   BIRTHDAY CAKE
+========================================= */
 
-    presentReveal.classList.remove("show");
+const cake =
+    document.getElementById("cake");
 
-    giftBox.classList.remove("open");
+const wishMessage =
+    document.getElementById("wishMessage");
 
-    clickText.textContent = "🎁 Click the gift to open it again";
 
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+cake.addEventListener("click", () => {
+
+    if (cake.classList.contains("blown")) {
+        return;
+    }
+
+    cake.classList.add("blown");
+
+    wishMessage.innerHTML =
+        "✨ May your birthday wish come true, Beryl. ❤️";
+
+    createConfetti();
+
+});
+
+
+
+/* =========================================
+   OPEN WHEN
+========================================= */
+
+const envelopes =
+    document.querySelectorAll(".envelope");
+
+const messageModal =
+    document.getElementById("messageModal");
+
+const modalMessage =
+    document.getElementById("modalMessage");
+
+const closeModal =
+    document.getElementById("closeModal");
+
+
+envelopes.forEach((envelope) => {
+
+    envelope.addEventListener("click", () => {
+
+        const message =
+            envelope.getAttribute("data-message");
+
+        modalMessage.textContent =
+            message.trim();
+
+        messageModal.classList.add("show");
+
     });
 
 });
 
 
-// =========================
-// CONFETTI
-// =========================
+closeModal.addEventListener("click", () => {
+
+    messageModal.classList.remove("show");
+
+});
+
+
+messageModal.addEventListener("click", (event) => {
+
+    if (event.target === messageModal) {
+
+        messageModal.classList.remove("show");
+
+    }
+
+});
+
+
+
+/* =========================================
+   GIFT BOX
+========================================= */
+
+const giftBox =
+    document.getElementById("giftBox");
+
+const presentReveal =
+    document.getElementById("presentReveal");
+
+const giftHint =
+    document.getElementById("giftHint");
+
+
+giftBox.addEventListener("click", () => {
+
+    if (giftBox.classList.contains("open")) {
+        return;
+    }
+
+    giftBox.classList.add("open");
+
+    giftHint.textContent =
+        "✨ Opening your surprise...";
+
+
+    setTimeout(() => {
+
+        presentReveal.classList.add("show");
+
+        giftHint.textContent =
+            "🎀 Your surprise is here!";
+
+        createConfetti();
+
+
+        setTimeout(() => {
+
+            presentReveal.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        }, 400);
+
+    }, 900);
+
+});
+
+
+
+/* =========================================
+   CONFETTI
+========================================= */
 
 function createConfetti() {
 
-    const numberOfPieces = 80;
+    const amount = 100;
 
-    for (let i = 0; i < numberOfPieces; i++) {
+    const colors = [
+        "#ff8fc5",
+        "#ffb6d7",
+        "#ffffff",
+        "#ffd37a",
+        "#ff5fa2"
+    ];
 
-        const confetti = document.createElement("div");
 
-        confetti.classList.add("confetti-piece");
+    for (let i = 0; i < amount; i++) {
 
-        // Random position
-        confetti.style.left =
-            Math.random() * 100 + "vw";
+        const piece =
+            document.createElement("div");
 
-        // Random size
-        confetti.style.width =
+
+        piece.style.position = "fixed";
+
+        piece.style.width =
             Math.random() * 8 + 5 + "px";
 
-        confetti.style.height =
+        piece.style.height =
             Math.random() * 12 + 8 + "px";
 
-        // Random rotation
-        confetti.style.transform =
-            `rotate(${Math.random() * 360}deg)`;
+        piece.style.left =
+            Math.random() * 100 + "vw";
 
-        // Random animation duration
-        confetti.style.animationDuration =
-            Math.random() * 3 + 3 + "s";
+        piece.style.top = "-20px";
 
-        // Random delay
-        confetti.style.animationDelay =
-            Math.random() * 0.5 + "s";
+        piece.style.background =
+            colors[
+                Math.floor(
+                    Math.random() * colors.length
+                )
+            ];
 
-        // Random color
-        const colors = [
-            "#ff8fc5",
-            "#ffd1e5",
-            "#ffffff",
-            "#f4b942",
-            "#ff5fa2"
-        ];
+        piece.style.zIndex = "9999";
 
-        confetti.style.backgroundColor =
-            colors[Math.floor(Math.random() * colors.length)];
-
-        document.body.appendChild(confetti);
+        piece.style.pointerEvents = "none";
 
 
-        // Remove after animation
+        const duration =
+            Math.random() * 3 + 3;
+
+
+        piece.style.animation =
+            `confettiFall ${duration}s linear forwards`;
+
+
+        document.body.appendChild(piece);
+
+
         setTimeout(() => {
-            confetti.remove();
-        }, 6000);
+
+            piece.remove();
+
+        }, duration * 1000);
 
     }
 
 }
+
+
+
+/* =========================================
+   CONFETTI ANIMATION
+========================================= */
+
+const confettiStyle =
+    document.createElement("style");
+
+
+confettiStyle.innerHTML = `
+
+@keyframes confettiFall {
+
+    0% {
+
+        transform:
+            translateY(0)
+            rotate(0deg);
+
+        opacity: 1;
+
+    }
+
+    100% {
+
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+
+        opacity: 0;
+
+    }
+
+}
+
+`;
+
+
+document.head.appendChild(confettiStyle);
+
+
+
+/* =========================================
+   FLOATING HEARTS
+========================================= */
+
+function createHeart() {
+
+    const heart =
+        document.createElement("div");
+
+
+    heart.innerHTML = "♡";
+
+
+    heart.style.position = "fixed";
+
+    heart.style.bottom = "-30px";
+
+    heart.style.left =
+        Math.random() * 100 + "vw";
+
+    heart.style.fontSize =
+        Math.random() * 20 + 10 + "px";
+
+    heart.style.color =
+        "#ff8fc5";
+
+    heart.style.opacity =
+        Math.random() * 0.5 + 0.3;
+
+    heart.style.pointerEvents =
+        "none";
+
+    heart.style.zIndex = "1";
+
+
+    heart.style.animation =
+        "heartFloat 7s linear forwards";
+
+
+    document.body.appendChild(heart);
+
+
+    setTimeout(() => {
+
+        heart.remove();
+
+    }, 7000);
+
+}
+
+
+setInterval(createHeart, 1800);
+
+
+
+/* =========================================
+   HEART ANIMATION
+========================================= */
+
+const heartStyle =
+    document.createElement("style");
+
+
+heartStyle.innerHTML = `
+
+@keyframes heartFloat {
+
+    0% {
+
+        transform:
+            translateY(0)
+            rotate(0deg);
+
+        opacity: 0;
+
+    }
+
+    15% {
+
+        opacity: 0.7;
+
+    }
+
+    100% {
+
+        transform:
+            translateY(-110vh)
+            rotate(360deg);
+
+        opacity: 0;
+
+    }
+
+}
+
+`;
+
+
+document.head.appendChild(heartStyle);
